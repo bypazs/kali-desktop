@@ -1,5 +1,10 @@
 #!/usr/bin/with-contenv bash
 set -e
+
+# im kali-rolling image liegt bash nicht mehr unter /bin
+ln -s /usr/bin/bash /bin/bash
+ln -s /usr/bin/sh /bin/sh
+
 USER=${USER:-root}
 HOME=/root
 if [ "$USER" != "root" ]; then
@@ -10,5 +15,5 @@ if [ "$USER" != "root" ]; then
     HOME="/home/$USER"
     echo "$USER:$PASSWORD" | chpasswd
 fi
-chown -R "$USER:$USER" "$HOME"
+# chown -R "$USER:$USER" "$HOME"
 echo "root:${ROOT_PASSWORD:-root}" | chpasswd

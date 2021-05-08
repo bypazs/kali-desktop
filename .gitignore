@@ -1,4 +1,2 @@
 .idea
-entrypoint.sh
 home/
-etc/cont-init.d/02-wallpaper
