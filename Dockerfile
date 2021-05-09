@@ -27,7 +27,7 @@ RUN true \
         mc nano zaproxy \
 # clean up
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*...
+    && rm -rf /var/lib/apt/lists/*
 
 # install s6 init overlay
 ARG S6_OVERLAY_VERSION=2.2.0.3
@@ -38,7 +38,7 @@ RUN true \
 # unpack
    && tar xzf "/tmp/s6-overlay-amd64.tar.gz" -C / \
 # cleanup
-   && rm -f /tmp/s6-overlay-amd64.tar.gz...
+   && rm -f /tmp/s6-overlay-amd64.tar.gz
 
 COPY etc/ /etc
 
