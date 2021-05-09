@@ -65,6 +65,7 @@ After init, some service get started
 MIT License
 
 Copyright (c) 2018 Łukasz Lach <llach@llach.pl>
+
 Copyright (c) 2021 Christian Charon
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
