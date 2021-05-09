@@ -54,7 +54,10 @@ When launching a container [01-init](./etc/cont-init.d/01-init) is executed. Thi
 
 After init, some service get started
 1. [xvfb](./etc/services.d/xvfb/run) - xserver that does not need a graphics card, it provides a virtual framebuffer and has no real input devices
+
 2. [gui](./etc/services.d/gui/run) starts XFCE the graphical desktop environment
-3.[x11vnc](./etc/services.d/x11vnc/run) VNC Server to connect via noVNC
-4.[websockify](./etc/services.d/websockify/run) translate noVNC Websocket to TCP
+
+3. [x11vnc](./etc/services.d/x11vnc/run) VNC Server to connect via noVNC
+
+4. [websockify](./etc/services.d/websockify/run) translate noVNC Websocket to TCP
 
