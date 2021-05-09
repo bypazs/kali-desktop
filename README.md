@@ -66,7 +66,7 @@ MIT License
 
 Copyright (c) 2018 Łukasz Lach <llach@llach.pl>
 
-Copyright (c) 2021 Christian Charon
+Copyright (c) 2021 ccharon
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
