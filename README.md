@@ -1,11 +1,13 @@
 # ccharon / kali-desktop
-Fork von lukaszlach/kali-desktop
-Angepasst weil es das kali-desktop Image so nicht mehr gibt und das Original Jahre alt ist.
+Fork of lukaszlach/kali-desktop
+
+Modified because the kali-desktop image that lukaszlach uses and his own image have not been updated in almost 2 years.
 
 ![Kali Desktop](./docs/kali-desktop.png)
 
-## Ausfuehren
-Wie im Original sind alle Abhaengigkeiten im Image enthalten. Man muss also nur das Image starten und im Webbrowser http://localhost:6080/vnc_auto.html gehts los
+## Running the image
+Like the original image all dependencies are included. After starting the image you can open your webbrowser at http://localhost:6080/vnc_auto.html and start.
+
 ```bash
 docker run -d \
     -p 5900:5900 -p 6080:6080 \
@@ -20,19 +22,24 @@ docker run -d \
 ```
 
 ### Parameter
-* `--privileged` - optional, aber empfohlen. Nur so funktionieren Dinge wie Portscans und so
-* `-e RESOLUTION` - optional, setzen der Ausgabeauflösung, default `1280x1024x24`
-* `-e USER` - optional, legt einen Nutzer mit dem angegebenen Namen an, default `root`
-* `-e PASSWORD` - optional, vergeben eines Passworts fuer USER, default `kali`
-* `-e ROOT_PASSWORD` - optional, vergeben eines Passworts fuer root, default `root`
-* `-v /home/kali:/home/kali` - optional, so kann man ein persistentes /home Verzeichnis haben
+* `--network host` - optional but recommended, use the host network interfaces, if you do not need to use this option you have to manually publish the ports by passing `-p 5900:5900 -p 6080:6080`
+* `--privileged` - optional but recommended
+* `-e RESOLUTION` - optional, set streaming resolution and color depth, default `1280x1024x24`
+* `-e USER` - optional, work as a user with provided name, default `root`
+* `-e PASSWORD` - optional, provide a password for USER, default `kali`
+* `-e ROOT_PASSWORD` - optional, provide password for root, default `root`
+* `-v /home/kali:/home/kali` - optional, if USER was provided it is a good idea to persist user settings, work files and look-and-feel
 
-### Portfreigaben
+### Exposed ports
 
 * `5900/tcp` - VNC
 * `6080/tcp` - noVNC, web browser VNC client
 
-### Image bauen
+### Building the image
 ```bash
 docker build -f Dockerfile -t kali-desktop:latest  .
 ```
+
+## How this image works
+mostly for myself as it took me a while to understand 😁
+...
