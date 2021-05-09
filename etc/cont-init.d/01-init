@@ -15,5 +15,5 @@ if [ "$USER" != "root" ]; then
     HOME="/home/$USER"
     echo "$USER:$PASSWORD" | chpasswd
 fi
-# chown -R "$USER:$USER" "$HOME"
+chown -R "$USER:$USER" "$HOME"
 echo "root:${ROOT_PASSWORD:-root}" | chpasswd
