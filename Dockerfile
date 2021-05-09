@@ -6,17 +6,17 @@ ARG KALI_DESKTOP=xfce
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN true \
-# Alles was nicht mit Exitcode 0 endet sorgt fuer einen Abbruch des Shellscripts
+# script execution stops if a command does not end with exit code 0
    && set -e \
-# Debugging, Alle Kommandos werden vor der Ausfhrung ausgegeben
+# debug, echo every command before executing
    && set -x \
-# Kali non-free Paketquellen hinzufgen
+# add kali non-free package source
    && echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list \
    && echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list \
-# System aktualisieren.
+# update system
    && apt-get update \
    && apt-get -y dist-upgrade \
-# Kali Desktop und novnc installieren.
+# install kali xfce desktop and top 10
    && apt install -y \
         curl sudo apt-transport-https gnupg \
         x11vnc xvfb novnc dbus-x11 x11-xkb-utils \
@@ -25,19 +25,19 @@ RUN true \
         kali-desktop-${KALI_DESKTOP} \
         python3-pip python3 wpscan \
         mc nano zaproxy \
-# putzen
+# clean up
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*...
 
-# S6 Overlay, angepasstes Init System
+# install s6 init overlay
 ARG S6_OVERLAY_VERSION=2.2.0.3
 ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/
 RUN true \
-# entpacken direkt ins root verzeichnis
+# unpack
    && tar xzf "/tmp/s6-overlay-amd64.tar.gz" -C / \
-# putzen
+# cleanup
    && rm -f /tmp/s6-overlay-amd64.tar.gz...
 
 COPY etc/ /etc
