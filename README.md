@@ -18,7 +18,7 @@ docker run -d \
     -e ROOT_PASSWORD=root \
     -v ${HOME}/kali:${HOME} \
     --name kali-desktop \
-    kali-desktop:latest
+    ccharon/kali-desktop:latest
 ```
 
 ### Parameter
