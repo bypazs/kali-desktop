@@ -61,6 +61,9 @@ After init, some service get started
 
 4. [websockify](./etc/services.d/websockify/run) translate noVNC Websocket to TCP
 
+## Available images
+See all available Docker image tags on [Docker Hub](https://hub.docker.com/r/ccharon/kali-desktop/tags/).
+
 ## License
 MIT License
 
