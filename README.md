@@ -42,4 +42,19 @@ docker build -f Dockerfile -t kali-desktop:latest  .
 
 ## How this image works
 mostly for myself as it took me a while to understand 😁
-...
+
+At first the kali-rolling docker image gets extended by:
+- kali-desktop-xfce
+- kali-tools-top10
+- vnc stuff (x11vnc, xvfb and novnc)
+
+Then the S6 init overlay gets installed. There are several scripts controlled by s6 that make this image work.
+
+When launching a container [01-init](./etc/cont-init.d/01-init) is executed. This creates the specified user and sets the provided passwords.
+
+After init, some service get started
+1. [xvfb](./etc/services.d/xvfb/run) - xserver that does not need a graphics card, it provides a virtual framebuffer and has no real input devices
+2. [gui](./etc/services.d/gui/run) starts XFCE the graphical desktop environment
+3.[x11vnc](./etc/services.d/x11vnc/run) VNC Server to connect via noVNC
+4.[websockify](./etc/services.d/websockify/run) translate noVNC Websocket to TCP
+
