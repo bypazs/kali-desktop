@@ -1,0 +1,14 @@
+version: '3'
+services:
+  kali-desktop:
+    image: ccharon/kali-desktop:latest
+    container_name: kali-desktop
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:6080:6080/tcp
+      - 127.0.0.1:5900:5900/tcp
+    environment:
+      RESOLUTION: 1920x1080x24
+      USER: ${USER}
+      PASSWORD: kali
+      ROOT_PASSWORD: root
