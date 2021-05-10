@@ -21,7 +21,7 @@ docker run -d \
     ccharon/kali-desktop:latest
 ```
 
-### Parameter
+### Parameters
 * `--network host` - optional but recommended, use the host network interfaces, if you do not need to use this option you have to manually publish the ports by passing `-p 5900:5900 -p 6080:6080`
 * `--privileged` - optional but recommended
 * `-e RESOLUTION` - optional, set streaming resolution and color depth, default `1280x1024x24`
@@ -34,6 +34,9 @@ docker run -d \
 
 * `5900/tcp` - VNC
 * `6080/tcp` - noVNC, web browser VNC client
+
+### Docker compose example
+[Simple docker compose file](./docker-compose.yaml) without persistent home and without privileged networking
 
 ### Building the image
 ```bash
