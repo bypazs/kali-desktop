@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [v0.0.2] - 2021-05-11
+### Added
+ - simple docker-compose example
+### Changed
+- reenabled chown -R "$USER:$USER" "$HOME" in 01-init
+- modified readme added links to dockerhub
+
 ## [v0.0.1] - 2021-05-09
 ### Added
 - explanation on how this image works in README.md
