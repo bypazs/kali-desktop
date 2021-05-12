@@ -6,7 +6,7 @@ Fork of lukaszlach/kali-desktop
 
 Modified because the kali-desktop image that lukaszlach uses and his own image have not been updated in almost 2 years.
 
-![Kali Desktop](https://github.com/ccharon/kali-desktop/docs/kali-desktop.png)
+![Kali Desktop](./docs/kali-desktop.png)
 
 ## Running the image
 Like the original image all dependencies are included. After starting the image you can open your webbrowser at http://localhost:6080/vnc_auto.html and start.
@@ -39,7 +39,7 @@ docker run -d \
 * `6080/tcp` - noVNC, web browser VNC client
 
 ### Docker compose example
-[Simple docker compose file](https://github.com/ccharon/kali-desktop/docker-compose.yaml) without persistent home and without privileged networking
+[Simple docker compose file](./docker-compose.yaml) without persistent home and without privileged networking
 
 ### Building the image
 ```bash
@@ -56,16 +56,16 @@ At first the kali-rolling docker image gets extended by:
 
 Then the S6 init overlay gets installed. There are several scripts controlled by s6 that make this image work.
 
-When launching a container [01-init](https://github.com/ccharon/kali-desktop/etc/cont-init.d/01-init) is executed. This creates the specified user and sets the provided passwords.
+When launching a container [01-init](./etc/cont-init.d/01-init) is executed. This creates the specified user and sets the provided passwords.
 
 After init, some service get started
-1. [xvfb](https://github.com/ccharon/kali-desktop/etc/services.d/xvfb/run) - xserver that does not need a graphics card, it provides a virtual framebuffer and has no real input devices
+1. [xvfb](./etc/services.d/xvfb/run) - xserver that does not need a graphics card, it provides a virtual framebuffer and has no real input devices
 
-2. [gui](https://github.com/ccharon/kali-desktop/etc/services.d/gui/run) - starts XFCE the graphical desktop environment
+2. [gui](./etc/services.d/gui/run) - starts XFCE the graphical desktop environment
 
-3. [x11vnc](https://github.com/ccharon/kali-desktop/etc/services.d/x11vnc/run) - VNC Server to connect via noVNC
+3. [x11vnc](./etc/services.d/x11vnc/run) - VNC Server to connect via noVNC
 
-4. [websockify](https://github.com/ccharon/kali-desktop/etc/services.d/websockify/run) - translate noVNC Websocket to TCP
+4. [websockify](./etc/services.d/websockify/run) - translate noVNC Websocket to TCP
 
 ## Available images
 See all available Docker image tags on [Docker Hub](https://hub.docker.com/r/ccharon/kali-desktop/tags/).
