@@ -2,7 +2,7 @@ DOCKER_IMAGE_NAME ?= ccharon/kali-desktop
 DATETIME = $(shell date +"%Y%m%d%H%M")
 
 build:
-	docker build -f Dockerfile -t docker-kali .
+	docker build --no-cache -f Dockerfile -t docker-kali .
 	docker tag docker-kali ${DOCKER_IMAGE_NAME}:${DATETIME}
 	docker tag docker-kali ${DOCKER_IMAGE_NAME}:$$(docker run --entrypoint '' docker-kali bash -c '. /etc/os-release; echo "$$VERSION";')
 	${MAKE} list
