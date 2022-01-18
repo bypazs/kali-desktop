@@ -6,6 +6,32 @@ Fork of lukaszlach/kali-desktop
 
 Modified because the kali-desktop image that lukaszlach uses and his own image have not been updated in almost 2 years.
 
+I added arm64 images, but the build still lacks automation. The Dockerfile supports amd64 and arm64, build with the following steps:
+
+```bash
+# buildx command to build a new latest tag for all platforms
+docker buildx build --push --platform linux/arm64,linux/amd64 -t ccharon/kali-desktop .
+
+# after it finishes create additional manifest files for additional tags
+
+# 1. get sha sums of the images just created
+docker manifest inspect ccharon/kali-desktop:latest | jq '.manifests' | jq '.[].digest'
+# this returns 2 sha256 hashes like these
+#"sha256:5f3ab874cff9653bf75507f0b2480f7b17d755ad68d3d53c5172e486c7e5ac2d"
+#"sha256:e8d28b02571eb8fcbef4c913e977c2eef82f105e5d503688113cbe0048136061"
+
+# 2. create a new manifest with the desired tag using the shasums from above
+docker manifest create ccharon/kali-desktop:2021.4 \
+ccharon/kali-desktop@sha256:5f3ab874cff9653bf75507f0b2480f7b17d755ad68d3d53c5172e486c7e5ac2d \
+ccharon/kali-desktop@sha256:e8d28b02571eb8fcbef4c913e977c2eef82f105e5d503688113cbe0048136061
+
+# 3. push this new manifest
+docker manifest push ccharon/kali-desktop:2021.4
+
+# repeat 2 and 3 for as many tags as desired
+```
+
+
 ![Kali Desktop](./docs/kali-desktop.png)
 
 ## Running the image
