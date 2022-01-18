@@ -1,3 +1,19 @@
+FROM scratch as s6-amd64
+ARG S6_OVERLAY_VERSION=2.2.0.3
+ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
+
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/s6-overlay.tar.gz
+
+FROM scratch as s6-arm64
+ARG S6_OVERLAY_VERSION=2.2.0.3
+ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
+
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-arm.tar.gz /tmp/s6-overlay.tar.gz
+
+# no action here just choose the right s6 archive depending on architecture
+FROM s6-${TARGETARCH} as s6
+
+
 FROM kalilinux/kali-rolling:latest
 
 ARG KALI_METAPACKAGE=tools-top10
@@ -30,15 +46,13 @@ RUN true \
     && rm -rf /var/lib/apt/lists/*
 
 # install s6 init overlay
-ARG S6_OVERLAY_VERSION=2.2.0.3
-ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
+COPY --from=s6 /tmp/s6-overlay.tar.gz /tmp/s6-overlay.tar.gz
 
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/
 RUN true \
 # unpack
-   && tar xzf "/tmp/s6-overlay-amd64.tar.gz" -C / \
+   && tar xzf "/tmp/s6-overlay.tar.gz" -C / \
 # cleanup
-   && rm -f /tmp/s6-overlay-amd64.tar.gz
+   && rm -f /tmp/s6-overlay.tar.gz
 
 COPY etc/ /etc
 
