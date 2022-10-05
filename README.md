@@ -6,6 +6,23 @@
 
 `docker buildx build --push --platform linux/amd64 -t ccharon/kali-desktop .`
 
+Test by use the commands below.
+--rm		Automatically remove the container when it exits
+
+`docker run --rm -it -p 5900:5900 -p 6080:6080 --privileged -e RESOLUTION=1980x1080x24 -e USER=${USER} -e PASSWORD=kali -e ROOT_PASSWORD=kali -v ${HOME}/kali:${HOME} --name kali-desktop ccharon/kali-desktop`
+
+Run by crontab via Ubuntu the commands below.
+
+1. You need to create bash script.
+```
+#!/bin/bash
+
+docker run --rm --tty -p 5900:5900 -p 6080:6080 --privileged -e RESOLUTION=1980x1080x24 -e USER=${USER} -e PASSWORD=kali -e ROOT_PASSWORD=kali -v ${HOME}/kali:${HOME} --name kali-desktop ccharon/kali-desktop
+```
+2. Using `crontab -e` and type the commands below.
+
+`@reboot /bin/bash /home/sosecure/docker_run.sh`
+
 
 Fork of lukaszlach/kali-desktop
 
