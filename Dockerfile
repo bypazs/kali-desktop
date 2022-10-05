@@ -53,11 +53,11 @@ RUN rm -rf /var/lib/apt/lists/*
 # install s6 init overlay
 COPY --from=s6 /tmp/s6-overlay.tar.gz /tmp/s6-overlay.tar.gz
 
+RUN true \
 # unpack
-RUN tar xzf "/tmp/s6-overlay.tar.gz" -C / 
-
+   && tar xzf "/tmp/s6-overlay.tar.gz" -C / \
 # cleanup
-RUN rm -f /tmp/s6-overlay.tar.gz
+   && rm -f /tmp/s6-overlay.tar.gz
 
 COPY etc/ /etc
 
