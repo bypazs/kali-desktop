@@ -40,7 +40,18 @@ RUN true \
         kali-${KALI_METAPACKAGE} \
         kali-desktop-${KALI_DESKTOP} \
         python3-pip python3 wpscan \
-        mc nano zaproxy \
+        mc nano zaproxy gobuster \
+        ffuf arp-scan cewl dirb \
+        dnsenum enum4linux evil-winrm \
+        hash-identifier hashcat hydra \
+        impacket-scripts masscan \
+        netdiscover nikto openvpn \
+        p7zip-full proxychains4 \
+        python3-impacket smbmap \
+        snmp snmpcheck telnet theharvester \
+        wafw00f webshells wfuzz \
+        whatweb windows-binaries \
+        winexe wordlists seclists \
 # clean up
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -58,11 +69,20 @@ COPY etc/ /etc
 
 ENV DISPLAY=:1
 ENV KALI_DESKTOP=xfce
-ENV ROOT_PASSWORD=root
+ENV ROOT_PASSWORD=kali
 ENV PASSWORD=kali
-ENV USER=admin
-ENV RESOLUTION=1280x1024x24
+ENV USER=kali
+ENV RESOLUTION=1980x1080x24
 
 EXPOSE 5900/tcp 6080/tcp
+
+# Gimmick
+RUN echo 'SOSECURE More than Secure\nGrim The Ripper Team\nhttps://medium.com/@grimthereaperteam\nhttps://github.com/bypazs/GrimTheRipper' >> /root/bypazs.txt
+
+# Extract Wordlist
+RUN sudo gunzip /usr/share/wordlists/rockyou.txt.gz
+
+# Go to main directory
+RUN cd
 
 ENTRYPOINT ["/init"]
