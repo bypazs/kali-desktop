@@ -1,18 +1,19 @@
-FROM scratch as s6-amd64
+FROM scratch as s6-noarch
 ARG S6_OVERLAY_VERSION=3.1.2.1
 ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
 
+#ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp/s6-overlay.tar.xz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp/s6-overlay.tar.xz
+
+FROM scratch as s6-x86_64
+ARG S6_OVERLAY_VERSION=3.1.2.1
+ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
+
+#ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-arm.tar.xz /tmp/s6-overlay.tar.xz
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp/s6-overlay.tar.xz
-
-FROM scratch as s6-arm64
-ARG S6_OVERLAY_VERSION=3.1.2.1
-ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
-
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-arm.tar.xz /tmp/s6-overlay.tar.xz
 
 # no action here just choose the right s6 archive depending on architecture
 FROM s6-${TARGETARCH} as s6
-
 
 FROM kalilinux/kali-rolling:latest
 
@@ -21,19 +22,14 @@ ARG KALI_DESKTOP=xfce
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN true \
-# script execution stops if a command does not end with exit code 0
-   && set -e \
-# debug, echo every command before executing
-   && set -x \
 # add kali non-free package source
-   && echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list \
-   && echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list \
+RUN echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list 
+RUN echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list 
 # update system
-   && apt-get update \
-   && apt-get -y dist-upgrade \
+RUN apt-get update 
+RUN apt-get -y dist-upgrade 
 # install kali xfce desktop and top 10
-   && apt install -y \
+RUN apt-get install -y \
         curl sudo apt-transport-https gnupg \
         x11vnc xvfb novnc dbus-x11 x11-xkb-utils \
         kali-defaults \
@@ -51,19 +47,20 @@ RUN true \
         snmp snmpcheck telnet theharvester \
         wafw00f webshells wfuzz \
         whatweb windows-binaries \
-        winexe wordlists seclists \
+        winexe wordlists seclists 
 # clean up
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get clean 
+RUN rm -rf /var/lib/apt/lists/*
 
 # install s6 init overlay
 COPY --from=s6 /tmp/s6-overlay.tar.xz /tmp/s6-overlay.tar.xz
 
-RUN true \
 # unpack
-   && tar xzf "/tmp/s6-overlay.tar.xz" -C / \
+#RUN tar xzf "/tmp/s6-overlay.tar.xz" -C / 
+RUN tar -C / -Jxpf /tmp/s6-overlay.tar.xz
+
 # cleanup
-   && rm -f /tmp/s6-overlay.tar.xz
+RUN rm -f /tmp/s6-overlay.tar.xz
 
 COPY etc/ /etc
 
@@ -81,8 +78,5 @@ RUN echo 'SOSECURE More than Secure\nGrim The Ripper Team\nhttps://medium.com/@g
 
 # Extract Wordlist
 RUN sudo gunzip /usr/share/wordlists/rockyou.txt.gz
-
-# Go to main directory
-RUN cd
 
 ENTRYPOINT ["/init"]
