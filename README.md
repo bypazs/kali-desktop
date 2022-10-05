@@ -2,6 +2,10 @@
 [![Docker pulls](https://img.shields.io/docker/pulls/ccharon/kali-desktop.svg?label=docker+pulls)](https://hub.docker.com/r/ccharon/kali-desktop)
 [![Docker stars](https://img.shields.io/docker/stars/ccharon/kali-desktop.svg?label=docker+stars)](https://hub.docker.com/r/ccharon/kali-desktop)
 
+`git clone https://github.com/bypazs/kali-desktop.git`
+`docker buildx build --push --platform linux/amd64 -t ccharon/kali-desktop .`
+
+
 Fork of lukaszlach/kali-desktop
 
 Modified because the kali-desktop image that lukaszlach uses and his own image have not been updated in almost 2 years.
