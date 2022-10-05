@@ -2,13 +2,13 @@ FROM scratch as s6-amd64
 ARG S6_OVERLAY_VERSION=3.1.2.1
 ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
 
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/s6-overlay.tar.gz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp/s6-overlay.tar.xz
 
 FROM scratch as s6-arm64
 ARG S6_OVERLAY_VERSION=3.1.2.1
 ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
 
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-arm.tar.gz /tmp/s6-overlay.tar.gz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-arm.tar.xz /tmp/s6-overlay.tar.xz
 
 # no action here just choose the right s6 archive depending on architecture
 FROM s6-${TARGETARCH} as s6
@@ -57,13 +57,13 @@ RUN true \
     && rm -rf /var/lib/apt/lists/*
 
 # install s6 init overlay
-COPY --from=s6 /tmp/s6-overlay.tar.gz /tmp/s6-overlay.tar.gz
+COPY --from=s6 /tmp/s6-overlay.tar.xz /tmp/s6-overlay.tar.xz
 
 RUN true \
 # unpack
-   && tar xzf "/tmp/s6-overlay.tar.gz" -C / \
+   && tar xzf "/tmp/s6-overlay.tar.xz" -C / \
 # cleanup
-   && rm -f /tmp/s6-overlay.tar.gz
+   && rm -f /tmp/s6-overlay.tar.xz
 
 COPY etc/ /etc
 
