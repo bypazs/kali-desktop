@@ -71,7 +71,7 @@ ENV RESOLUTION=1980x1080x24
 EXPOSE 5900/tcp 6080/tcp
 
 # Gimmick
-RUN echo 'SOSECURE More than Secure\nGrim The Ripper Team\nhttps://medium.com/@grimthereaperteam\nhttps://github.com/bypazs/GrimTheRipper' >> /root/bypazs.txt
+RUN sudo echo 'SOSECURE More than Secure\nGrim The Ripper Team\nhttps://medium.com/@grimthereaperteam\nhttps://github.com/bypazs/GrimTheRipper' >> /root/bypazs.txt
 
 # Extract Wordlist
 RUN sudo gunzip /usr/share/wordlists/rockyou.txt.gz
