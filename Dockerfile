@@ -1,11 +1,11 @@
 FROM scratch as s6-amd64
-ARG S6_OVERLAY_VERSION=2.2.0.3
+ARG S6_OVERLAY_VERSION=3.1.2.1
 ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-amd64.tar.gz /tmp/s6-overlay.tar.gz
 
 FROM scratch as s6-arm64
-ARG S6_OVERLAY_VERSION=2.2.0.3
+ARG S6_OVERLAY_VERSION=3.1.2.1
 ENV S6_OVERLAY_VERSION $S6_OVERLAY_VERSION
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-arm.tar.gz /tmp/s6-overlay.tar.gz
