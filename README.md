@@ -3,6 +3,7 @@
 [![Docker stars](https://img.shields.io/docker/stars/ccharon/kali-desktop.svg?label=docker+stars)](https://hub.docker.com/r/ccharon/kali-desktop)
 
 `git clone https://github.com/bypazs/kali-desktop.git`
+
 `docker buildx build --push --platform linux/amd64 -t ccharon/kali-desktop .`
 
 
