@@ -46,7 +46,7 @@ RUN apt-get install -y \
         wafw00f webshells wfuzz \
         whatweb windows-binaries \
         winexe wordlists seclists \
-        iputils-ping
+        iputils-ping netcat
 # clean up
 RUN apt-get clean 
 RUN rm -rf /var/lib/apt/lists/*
