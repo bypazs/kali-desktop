@@ -45,7 +45,8 @@ RUN apt-get install -y \
         snmp snmpcheck telnet theharvester \
         wafw00f webshells wfuzz \
         whatweb windows-binaries \
-        winexe wordlists seclists 
+        winexe wordlists seclists \
+        iputils-ping
 # clean up
 RUN apt-get clean 
 RUN rm -rf /var/lib/apt/lists/*
