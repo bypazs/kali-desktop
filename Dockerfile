@@ -46,7 +46,8 @@ RUN apt-get install -y \
         wafw00f webshells wfuzz \
         whatweb windows-binaries \
         winexe wordlists seclists \
-        iputils-ping netcat
+        iputils-ping netcat libimage-exiftool-perl \
+        steghide
 # clean up
 RUN apt-get clean 
 RUN rm -rf /var/lib/apt/lists/*
