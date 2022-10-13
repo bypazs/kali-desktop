@@ -21,8 +21,8 @@ ARG KALI_DESKTOP=xfce
 ENV DEBIAN_FRONTEND=noninteractive
 
 # add kali non-free package source
-RUN echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list 
-RUN echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list 
+#RUN echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list 
+#RUN echo "deb-src http://http.kali.org/kali kali-rolling main contrib non-free" >> /etc/apt/sources.list 
 # update system
 RUN apt-get update 
 RUN apt-get -y dist-upgrade 
